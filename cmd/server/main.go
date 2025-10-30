@@ -21,12 +21,12 @@ func main() {
 	if port == "" {
 		port = "3000"
 	}
+	// Servir les fichiers statiques
 	fs := http.FileServer(http.Dir("./views"))
 	http.Handle("/", fs)
 	http.HandleFunc("/contact", web.ContactHandler)
 	log.Printf("Listening on port %s\n...Click here http://localhost:%s", port, port)
-	err := http.ListenAndServe(":"+port, nil)
-	if err != nil {
+	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatal(err)
 	}
 }
