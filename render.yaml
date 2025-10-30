@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: portfolio-francois-orega
+    runtime: go
+    plan: free
+    buildCommand: go build -o portfolio cmd/server/main.go
+    startCommand: ./portfolio
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: GO_VERSION
+        value: 1.24.4
+      - key: EMAIL
+        sync: false
+      - key: PASSWORD
+        sync: false
+      - key: HOST
+        value: smtp.gmail.com
+      - key: HOST_PORT
+        value: smtp.gmail.com:587
+    healthCheckPath: /
+    autoDeploy: true
+    branch: main
+    rootDir: .
+    disk:
+      name: portfolio-disk
+      mountPath: /opt/render/project/src
+      sizeGB: 1
