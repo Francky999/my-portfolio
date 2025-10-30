@@ -11,8 +11,9 @@ import (
 )
 
 func init() {
+	// Charger le fichier .env seulement en développement local
 	if err := godotenv.Load(); err != nil {
-		log.Fatal("Erreur lors du chargement du fichier .env")
+		log.Println("No .env file found, using environment variables")
 	}
 }
 
