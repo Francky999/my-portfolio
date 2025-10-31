@@ -12,10 +12,8 @@ import (
 
 func init() {
 	// Charger .env seulement si présent (local)
-	if _, err := os.Stat(".env"); err == nil {
-		if err := godotenv.Load(); err != nil {
-			log.Println("⚠️ Impossible de charger .env, continuer avec les variables d'environnement")
-		}
+	if err := godotenv.Load(); err != nil {
+		log.Println("⚠️ Environnement de production")
 	}
 }
 

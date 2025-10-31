@@ -11,10 +11,8 @@ import (
 
 func init() {
 	// Charger .env seulement si présent (local)
-	if _, err := os.Stat(".env"); err == nil {
-		if err := godotenv.Load(); err != nil {
-			log.Println("⚠️ Impossible de charger .env, continuer avec les variables d'environnement")
-		}
+	if err := godotenv.Load(); err != nil {
+		log.Println("⚠️ Environnement de production")
 	}
 }
 
@@ -26,12 +24,14 @@ func main() {
 	// Servir les fichiers statiques
 	fs := http.FileServer(http.Dir("./views/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
+	
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./views/index.html")
 	})
 	http.HandleFunc("/contact", web.ContactHandler)
+
 	log.Printf("Listening on port %s\n...Click here http://localhost:%s", port, port)
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 }
