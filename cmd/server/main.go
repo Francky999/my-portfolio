@@ -24,7 +24,7 @@ func main() {
 	// Servir les fichiers statiques
 	fs := http.FileServer(http.Dir("./views/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
-	
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./views/index.html")
 	})
