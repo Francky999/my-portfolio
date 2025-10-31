@@ -12,7 +12,7 @@ import (
 func init() {
 	// Charger .env seulement si présent (local)
 	if err := godotenv.Load(); err != nil {
-		log.Println("⚠️ Environnement de production")
+		log.Println("🛠️ Environnement de production")
 	}
 }
 
