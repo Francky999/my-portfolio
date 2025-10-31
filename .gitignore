@@ -14,8 +14,6 @@ app-go
 *.out
 *.prof
 
-# Dépendances vendorisées (optionnel)
-vendor/
 
 # Fichiers de configuration locaux
 .env
