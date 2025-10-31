@@ -21,13 +21,12 @@ func main() {
 	if port == "" {
 		port = "3000"
 	}
-	// Servir les fichiers statiques
-	fs := http.FileServer(http.Dir("./views/assets"))
-	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
+	// Servir les fichiers statiques (CSS, JS, images)
+	assetsFS := http.FileServer(http.Dir("./views/assets"))
+	http.Handle("/assets/", http.StripPrefix("/assets/", assetsFS))
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./views/index.html")
-	})
+	// Servir toutes les pages HTML depuis /views/
+	http.Handle("/", http.FileServer(http.Dir("./views")))
 	http.HandleFunc("/contact", web.ContactHandler)
 
 	log.Printf("Listening on port %s\n...Click here http://localhost:%s", port, port)
